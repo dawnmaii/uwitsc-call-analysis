@@ -134,7 +134,7 @@ print(f"Agent name: {agent_name}")
                     # Check for user phrases
                     if not is_agent:
                         user_phrases = [
-                            "it's vishalm", "my netid is", "i'm going to my laptop", 
+                            "my netid is", "i'm going to my laptop", 
                             "i'll open zoom", "that worked", "no, that's it", "take care"
                         ]
                         for phrase in user_phrases:
@@ -157,8 +157,7 @@ print(f"Agent name: {agent_name}")
                         # Check for user repeating agent information
                         if not is_user and len(sentence.strip()) < 30:
                             repeat_patterns = [
-                                "974-7435-3221", "97474353221", "974 7435 3221",
-                                "vishalm", "v-i-s-h-a-l-m", "vishal"
+                                
                             ]
                             for pattern in repeat_patterns:
                                 if pattern in sentence_lower:
@@ -266,8 +265,7 @@ print(f"Agent name: {agent_name}")
                         # Check for user repeating agent information (like Zoom IDs, codes, etc.)
                         if not is_user and len(sentence.strip()) < 30:
                             repeat_patterns = [
-                                "974-7435-3221", "97474353221", "974 7435 3221",
-                                "vishalm", "v-i-s-h-a-l-m", "vishal"
+                                
                             ]
                             for pattern in repeat_patterns:
                                 if pattern in sentence_lower:
@@ -336,7 +334,7 @@ print(f"Agent name: {agent_name}")
                     
                     # Check for user phrases - be very specific to avoid false positives
                     user_phrases = [
-                        "it's vishalm", "my netid is", "i'm going to my laptop", 
+                        "my netid is", "i'm going to my laptop", 
                         "i'll open zoom", "that worked", "no, that's it", "take care"
                     ]
                     is_user = False
@@ -368,8 +366,7 @@ print(f"Agent name: {agent_name}")
                         # Check for user repeating agent information (like Zoom IDs, codes, etc.)
                         if not is_user and len(sentence.strip()) < 30:
                             repeat_patterns = [
-                                "974-7435-3221", "97474353221", "974 7435 3221",
-                                "vishalm", "v-i-s-h-a-l-m", "vishal"
+                                
                             ]
                             for pattern in repeat_patterns:
                                 if pattern in sentence_lower:
