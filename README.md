@@ -57,6 +57,17 @@ home-directory/
 5. You can now proceed to the [Quick Start](#quick-start) section below to start analysis!
 
 ### Quick Start
+
+**First, set up your Hugging Face token:**
+```bash
+# Set your Hugging Face token as an environment variable
+export HF_TOKEN=your_hugging_face_token_here
+
+# Verify it's set (optional)
+echo "Token set: ${HF_TOKEN:0:10}..."
+```
+
+**Then run the complete pipeline:**
 ```bash
 # Run the complete pipeline
 ./run_speaker_analysis.sh audio_data
@@ -67,8 +78,8 @@ home-directory/
 
 ### Manual Execution
 ```bash
-# Run orchestrator directly
-python3 submit_slurm.py audio_data --hf-token YOUR_HF_TOKEN --threshold 75
+# Run orchestrator directly (still requires HF_TOKEN environment variable)
+python3 submit_slurm.py audio_data --hf-token $HF_TOKEN --threshold 75
 ```
 
 ### Standalone Testing
@@ -80,9 +91,25 @@ python3 transcribe_calls.py audio_data/David --format vtt
 ## Configuration
 
 ### Environment Variables
-- `HF_TOKEN`: Hugging Face token for WhisperX model access (should be included in [`run_speaker_analysis.sh`](#quick-start) already)
-- `CUDA_VISIBLE_DEVICES`: GPU device selection
-- `OLLAMA_HOST`: Ollama server binding address
+
+#### Required Variables
+- **`HF_TOKEN`**: Hugging Face token for WhisperX model access
+  - **How to get**: Create a token at [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+  - **How to set**: `export HF_TOKEN=your_token_here`
+  - **Security**: Never commit this token to version control
+  - **Validation**: The script will check if this variable is set before running
+
+#### Optional Variables
+- **`CUDA_VISIBLE_DEVICES`**: GPU device selection (default: auto-detect)
+- **`OLLAMA_HOST`**: Ollama server binding address (default: `0.0.0.0:11434`)
+
+#### Setting Environment Variables Permanently
+To avoid setting the token every time you log in, add it to your shell profile:
+```bash
+# Add to ~/.bashrc or ~/.profile
+echo 'export HF_TOKEN=your_token_here' >> ~/.bashrc
+source ~/.bashrc
+```
 
 ### Key Parameters
 - **Score Threshold**: Default 75 (calls at or above this score go to [`reviewed/`](#file-structure), below go to [`needs_further_attention/`](#file-structure))
@@ -165,9 +192,37 @@ JSON format with scores and reasoning:
 ## Troubleshooting
 
 ### Common Issues
-1. **Missing HF Token**: Ensure Hugging Face token is provided (see [Configuration](#configuration))
-2. **GPU Availability**: Check `hyakalloc` output for available GPUs
-3. **Container Issues**: Verify container images exist and are accessible
+
+#### 1. **Missing HF Token Error**
+```
+Error: HF_TOKEN environment variable is required
+Please set it with: export HF_TOKEN=your_token_here
+```
+**Solution**: Set your Hugging Face token as an environment variable:
+```bash
+export HF_TOKEN=your_actual_token_here
+```
+
+#### 2. **Token Validation Issues**
+- **Check if token is set**: `echo $HF_TOKEN`
+- **Verify token format**: Should start with `hf_`
+- **Test token**: Visit [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) to verify
+
+#### 3. **GPU Availability**
+- Check `hyakalloc` output for available GPUs
+- Verify SLURM partition availability: `sinfo -p gpu-h200`
+
+#### 4. **Container Issues**
+- Verify container images exist: `ls -la *.sif`
+- Check container permissions: `ls -la ollama_python.sif whisperx_python.sif`
+
+#### 5. **Environment Variable Not Persisting**
+If your token disappears after logging out:
+```bash
+# Add to your shell profile
+echo 'export HF_TOKEN=your_token_here' >> ~/.bashrc
+source ~/.bashrc
+```
 4. **File Permissions**: Ensure write access to output directories
 
 ### Logs
