@@ -13,7 +13,7 @@ import argparse
 def setup_environment():
     """Setup environment and check dependencies"""
     # Check if whisperx_script.py exists in the expected location
-    script_path = "/mmfs1/gscratch/fellows/dawnmai/whisperx_script.py"
+    script_path = "...dawnmai/whisperx_script.py"
     if not os.path.exists(script_path):
         print(f"Error: whisperx_script.py not found at {script_path}")
         return False
@@ -45,7 +45,7 @@ def transcribe_speaker_folder(speaker_folder, output_format="vtt"):
         
         # Run WhisperX transcription
         cmd = [
-            "python3", "/mmfs1/gscratch/fellows/dawnmai/whisperx_script.py", str(audio_file)
+            "python3", ".../dawnmai/whisperx_script.py", str(audio_file)
         ]
         
         result = subprocess.run(cmd, check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
