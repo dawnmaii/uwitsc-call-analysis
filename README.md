@@ -66,6 +66,10 @@ export HF_TOKEN=your_hugging_face_token_here
 # Verify it's set (optional)
 echo "Token set: ${HF_TOKEN:0:10}..."
 ```
+**or, paste it into line 28 of [`run_speaker_analysis.sh`](run_speaker>analysis.py), which looks like this:**
+```bash
+HF_TOKEN="${HF_TOKEN:(put it here!)}"
+```
 
 **Then run the complete pipeline:**
 ```bash
