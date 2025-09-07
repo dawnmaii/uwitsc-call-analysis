@@ -1,4 +1,4 @@
-# UWITSC AI Integration - Audio Transcription and Analysis Pipeline
+# UWITSC AI Integration - Audio Transcription and Analysis
 
 This pipeline processes customer service call audio files through automated transcription, speaker diarization, and quality analysis using WhisperX and Ollama, via the UW's Hyak supercomputer.
 
