@@ -153,10 +153,10 @@ mkdir -p "{speaker_folder.name}/needs_further_attention"
 mkdir -p "{speaker_folder.name}/reviewed"
 
 # Run WhisperX transcription using container
-apptainer run --nv --bind /gscratch /mmfs1/gscratch/fellows/dawnmai/whisperx_python.sif python3 /mmfs1/gscratch/fellows/dawnmai/transcribe_calls.py "{speaker_folder.name}" --format vtt
+apptainer run --nv --bind .../dawnmai/whisperx_python.sif python3 .../dawnmai/transcribe_calls.py "{speaker_folder.name}" --format vtt
 
 # Start Ollama server and run analysis using container
-apptainer run --nv --bind /gscratch /mmfs1/gscratch/fellows/dawnmai/ollama_python.sif bash -c "
+apptainer run --nv --bind .../dawnmai/ollama_python.sif bash -c "
 pip install requests
 export CUDA_VISIBLE_DEVICES=0
 export OLLAMA_HOST=0.0.0.0:11434
@@ -168,7 +168,7 @@ ollama pull llama3.2:3b
 echo 'Model pull completed, waiting for model to be ready...'
 sleep 40
 echo 'Starting analysis...'
-python3 /mmfs1/gscratch/fellows/dawnmai/analyze_with_ollama.py '{speaker_folder.name}' --threshold {SCORE_THRESHOLD}
+python3 .../dawnmai/analyze_with_ollama.py '{speaker_folder.name}' --threshold {SCORE_THRESHOLD}
 "
 
 echo "Job completed for {speaker_folder.name}"
@@ -194,7 +194,7 @@ module load apptainer
 
 # Start Ollama server and run analysis using container
 cd "{self.base_dir}"
-apptainer run --nv --bind /gscratch /mmfs1/gscratch/fellows/dawnmai/ollama_python.sif bash -c "ollama serve & sleep 15 && python3 /mmfs1/gscratch/fellows/dawnmai/analyze_with_ollama.py '{speaker_folder}' --threshold {SCORE_THRESHOLD}"
+apptainer run --nv --bind .../dawnmai/ollama_python.sif bash -c "ollama serve & sleep 15 && python3 .../dawnmai/analyze_with_ollama.py '{speaker_folder}' --threshold {SCORE_THRESHOLD}"
 
 echo "Ollama analysis completed for {speaker_folder.name}"
 """
