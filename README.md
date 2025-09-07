@@ -1,4 +1,4 @@
-# UWITSC AI Integration - Audio Transcription and Analysis Pipeline
+# UWITSC AI Integration - Audio Transcription and Analysis
 
 This pipeline processes customer service call audio files through automated transcription, speaker diarization, and quality analysis using WhisperX and Ollama, via the UW's Hyak supercomputer.
 
@@ -162,7 +162,7 @@ WEBVTT
 JSON format with scores and reasoning:
 ```json
 {
-  "F270904032858XV72300346x.vtt": {
+  "call_transcription.vtt": {
     "audio_file": "<audio_file>.wav",
     "transcription_file": "<transcription_file>.vtt",
     "score": 98,
@@ -186,7 +186,7 @@ JSON format with scores and reasoning:
 
 ### System Requirements
 - Access to UW Hyak cluster
-- GPU partition access (gpu-h200)
+- GPU partition access
 - Sufficient storage for audio files and outputs
 
 ## Troubleshooting
